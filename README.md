@@ -27,6 +27,9 @@ Basically an instantiation of Solace-Kafka connectors but ready for deployment i
   * Then just install with *helm install*:
     * e.g. helm install mykafka ./kafka
   
-  **To start in Distributed mode instead of standalone change the start command (CMD) in the dockerfile before building the image.**
+  **To start in Distributed mode instead of standalone change the start command (CMD) in the dockerfile before building the image.**  
+  For debug purposes the image can be initialized without the second part of the CMD comand (just run the setup.sh) by either changing the start command in kafka/values.yaml (just uncomment the setup.sh at line 189) and then install again or building a new image. After that the script can be started manually (/opt/bitnami/kafka/bin/connect-standalone.sh).
 
-**To stop the connector enter the container in iterative mode (kubectl exec -it mykafka-0  -- /bin/bash) and run the script /opt/bitnami/kafka/bin/kafka-server-stop.sh** 
+  **To stop the kafka server, enter the container in iterative mode (kubectl exec -it mykafka-0  -- /bin/bash) and run the script /opt/bitnami/kafka/bin/kafka-server-stop.sh**  
+  Although this will make the pod restart so there's no point of using it.
+  
