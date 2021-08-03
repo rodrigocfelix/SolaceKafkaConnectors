@@ -8,7 +8,7 @@ Basically an instantiation of Solace-Kafka connectors but ready for deployment i
   
   ![image](https://user-images.githubusercontent.com/72951472/127986457-7b0f2323-17f9-4314-9cef-8cc13b0c5d86.png)
   
-  If you are trying to connect to a Solace broker on a cluster and you don't need to concern about security, the connection type will be TCP, followed by the broker's IP and the broker's port for plaintext (55555 is the default).  
+  If you are trying to connect to a Solace broker on a cluster and security is not a concern, the connection type will be TCP, followed by the broker's IP and the broker's port for plaintext (55555 is the default).  
   If you are trying to connect to solace cloud then the connection will have to be secure, thus the connection's type will be TCPS instead of TCP, followed by all the connection's information given by the cloud (you will need to download the PEM file, place it in the certs folder and follow the instructions there).  
    
   ![image](https://user-images.githubusercontent.com/72951472/127856736-d41c688f-e444-4fef-9f25-73e65748f9c9.png)
@@ -28,3 +28,5 @@ Basically an instantiation of Solace-Kafka connectors but ready for deployment i
     * e.g. helm install mykafka ./kafka
   
   **To start in Distributed mode instead of standalone change the start command (CMD) in the dockerfile before building the image.**
+
+**To stop the connector enter the container in iterative mode (kubectl exec -it mykafka-0  -- /bin/bash) and run the script /opt/bitnami/kafka/bin/kafka-server-stop.sh** 
