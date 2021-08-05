@@ -17,4 +17,6 @@ COPY ./connect-distributed.properties /opt/bitnami/kafka/config
 
 WORKDIR /opt/bitnami/kafka
 
-CMD /scripts/setup.sh & sleep 10 ; /opt/bitnami/kafka/bin/connect-standalone.sh /opt/bitnami/kafka/config/connect-standalone.properties /opt/bitnami/kafka/connectors/pubsubplus-connector-kafka-source-2.0.2/etc/solace_source.properties /opt/bitnami/kafka/connectors/pubsubplus-connector-kafka-sink-2.0.2/etc/solace_sink.properties
+##CMD /scripts/setup.sh & sleep 10 ; /opt/bitnami/kafka/bin/connect-standalone.sh /opt/bitnami/kafka/config/connect-standalone.properties /opt/bitnami/kafka/connectors/pubsubplus-connector-kafka-source-2.0.2/etc/solace_source.properties /opt/bitnami/kafka/connectors/pubsubplus-connector-kafka-sink-2.0.2/etc/solace_sink.properties
+
+CMD /scripts/setup.sh & sleep 20 ; /opt/bitnami/kafka/bin/connect-distributed.sh /opt/bitnami/kafka/config/connect-distributed.properties 
