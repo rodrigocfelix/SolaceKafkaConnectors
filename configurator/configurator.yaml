@@ -16,10 +16,34 @@ spec:
     spec:
       containers:
       - name: configurator
-        image: adoptopenjdk/openjdk8:x86_64-ubuntu-jre8u292-b10
-        ##image: rodrigofelixdockerhub/configurator:latest
+        ##image: adoptopenjdk/openjdk8:x86_64-ubuntu-jre8u292-b10
+        image: rodrigofelixdockerhub/kafkaconfigurator
         command: ["sleep"]
         args: ["infinity"]
         env:
-        - name: TESTE
-          value: nsei
+        - name: KafkaSinkTopic
+          value: test
+        - name: SolaceSinkHost
+          value: tcp://brokerip:55555
+        - name: SolaceSinkUser
+          value: default
+        - name: SolaceSinkPass
+          value: '123'
+        - name: SolaceSinkVPNname
+          value: solace-kafka
+        - name: SolaceSinkTopics
+        ##tanto neste como no do kafka separar os topicos por virgula e espaço
+          value: sinktest
+        - name: KafkaSourceTopic
+          value: test
+        - name: SolaceSourceHost
+          value: tcp://brokerip:55555
+        - name: SolaceSourceUser
+          value: default
+        - name: SolaceSourcePass
+          value: '123'
+        - name: SolaceSourceVPNname
+          value: solace-kafka
+        - name: SolaceSourceTopics
+        ##tanto neste como no do kafka separar os topicos por virgula e espaço
+          value: sourcetest
