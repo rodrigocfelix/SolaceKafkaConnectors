@@ -6,12 +6,12 @@
 		"key.converter": "org.apache.kafka.connect.converters.ByteArrayConverter",
 		"value.converter": "org.apache.kafka.connect.storage.StringConverter",
 		"group.id": "solSinkConnectorGroup",
-		"topics": "test",
-		"sol.host": "tcp://IP:55555",
-		"sol.username": "default",
-		"sol.password": "123",
-		"sol.vpn_name": "solace-kafka",
-		"sol.topics": "sinktest",
+		"topics": "${process.env.KafkaSinkTopic}",
+		"sol.host": "${process.env.SolaceSinkHost}",
+		"sol.username": "${process.env.SolaceSinkUser}",
+		"sol.password": "${process.env.SolaceSinkPass}",
+		"sol.vpn_name": "${process.env.SolaceSinkVPNname}",
+		"sol.topics": "${process.env.SolaceSinkTopics}",
 		"sol.record_processor_class": "com.solace.connector.kafka.connect.sink.recordprocessor.SolSimpleRecordProcessor"
 	}
 }

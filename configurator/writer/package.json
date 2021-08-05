@@ -1,0 +1,13 @@
+{
+  "name": "writer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ~/Documents/estagio/writer/index.js",
+    "startpod": "node /home/writer/index.js ; sleep infinity",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rodrigo Félix",
+  "license": "ISC"
+}

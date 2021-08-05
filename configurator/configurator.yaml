@@ -18,8 +18,13 @@ spec:
       - name: configurator
         ##image: adoptopenjdk/openjdk8:x86_64-ubuntu-jre8u292-b10
         image: rodrigofelixdockerhub/kafkaconfigurator
-        command: ["sleep"]
-        args: ["infinity"]
+        imagePullPolicy: Always
+        command: ["npm"]
+        args: ["run", "startpod"]
+        #command: 
+        #- npm run startpod
+        #command: ["sleep"]
+        #args: ["infinity"]
         env:
         - name: KafkaSinkTopic
           value: test
