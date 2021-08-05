@@ -1,6 +1,14 @@
 # SolaceKafkaConnectors
 Basically an instantiation of Solace-Kafka connectors but ready for deployment in kubernetes
 
+# To run in distributed mode
+All the major configuration is already done, just download the repo, configure the file /kafka/values.yaml to use the settings you want (expecially ReplicaCount), after that just install kafka using *helm install*:
+  * e.g. helm install mykafka ./kafka  
+Now configure the ENV vars in configurator.yaml and deploy it.
+After that just enter the pod in iterative mode (kubectl exec -it \<podName\>  -- /bin/bash) and run the comands to configure or get information about the connectors (a file with just a few basic commands can be found inside the pod at /home/commands).
+
+# To run in standalone mode 
+
 **Configuration:**  
   After downloading the repo edit the connection information in the files:
   * ./connectors/pubsubplus-connector-kafka-sink-2.0.2/etc/solace_sink.properties 
@@ -27,9 +35,8 @@ Basically an instantiation of Solace-Kafka connectors but ready for deployment i
   * Then just install with *helm install*:
     * e.g. helm install mykafka ./kafka
   
-  **To start in Distributed mode instead of standalone change the start command (CMD) in the dockerfile before building the image.**  
+  
   For debug purposes the image can be initialized without the second part of the CMD comand (just run the setup.sh) by either changing the start command in kafka/values.yaml (just uncomment the setup.sh at line 189) and then install again or building a new image. After that the script can be started manually (/opt/bitnami/kafka/bin/connect-standalone.sh).
 
-  **To stop the kafka server, enter the container in iterative mode (kubectl exec -it mykafka-0  -- /bin/bash) and run the script /opt/bitnami/kafka/bin/kafka-server-stop.sh**  
-  Although this will make the pod restart so there's no point of using it.
+  **To stop the kafka server, enter the pod in iterative mode (kubectl exec -it mykafka-0  -- /bin/bash) and run the script /opt/bitnami/kafka/bin/kafka-server-stop.sh**  
   
