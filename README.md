@@ -4,7 +4,7 @@ Basically an instantiation of Solace-Kafka connectors but ready for deployment i
 # To run in distributed mode
 All the major configuration is already done, just download the repo, configure the file /kafka/values.yaml to use the settings you want (expecially ReplicaCount), after that just install kafka using *helm install*:
   * e.g. helm install mykafka ./kafka  
-Now configure the ENV vars in configurator.yaml and deploy it.
+Now configure the ENV vars in configurator.yaml and deploy it.  
 After that just enter the pod in iterative mode (kubectl exec -it \<podName\>  -- /bin/bash) and run the comands to configure or get information about the connectors (a file with just a few basic commands can be found inside the pod at /home/commands).
 
 # To run in standalone mode 
