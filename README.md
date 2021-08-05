@@ -2,10 +2,12 @@
 Basically an instantiation of Solace-Kafka connectors but ready for deployment in kubernetes
 
 # To run in distributed mode
-All the major configuration is already done, just download the repo, configure the file /kafka/values.yaml to use the settings you want (expecially ReplicaCount), after that just install kafka using *helm install*:
+All the major configuration is already done, just download the repo, configure the file /kafka/values.yaml to use the settings you want (pay special atention to ReplicaCount), after that just install kafka using *helm install*:
   * e.g. helm install mykafka ./kafka  
+
 Now configure the ENV vars in configurator.yaml and deploy it.  
-After that just enter the pod in iterative mode (kubectl exec -it \<podName\>  -- /bin/bash) and run the comands to configure or get information about the connectors (a file with just a few basic commands can be found inside the pod at /home/commands).
+After that just enter the pod in iterative mode (kubectl exec -it \<podName\>  -- /bin/bash) and run the comands to configure or get information about the connectors.  
+A file with just a few basic commands can be found inside the pod at /home/commands all you got to do to use them is to change the name of the headless service.
 
 # To run in standalone mode 
 
