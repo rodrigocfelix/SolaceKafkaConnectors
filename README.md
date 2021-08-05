@@ -3,11 +3,13 @@ Basically an instantiation of Solace-Kafka connectors but ready for deployment i
 
 # To run in distributed mode
 All the major configuration is already done, just download the repo, configure the file /kafka/values.yaml to use the settings you want (pay special atention to ReplicaCount), after that just install kafka using *helm install*:
-  * e.g. helm install mykafka ./kafka  
+  * e.g. *helm install mykafka ./kafka*  
 
-Now configure the ENV vars in /configurator/configurator.yaml and deploy it (to deploy just do kubectl apply -f configurator.yaml, theres no need to build a new image).  
-After that just enter the pod in iterative mode (kubectl exec -it \<podName\>  -- /bin/bash) and run the comands to configure or get information about the connectors.  
-A file with just a few basic commands can be found inside the pod at /home/commands all you got to do to use them is to change the name of the headless service.
+Now configure the ENV vars in /configurator/configurator.yaml and deploy it (to deploy just do *kubectl apply -f configurator.yaml*, theres no need to build a new image).  
+After that just enter the pod in iterative mode (*kubectl exec -it \<podName\>  -- /bin/bash*) and run the comands to configure or get information about the connectors.  
+A file with just a few basic commands can be found inside the pod at /home/commands all you got to do to use them is to change the name of the headless service.  
+
+The pod already has nano editor installed so if theres any special configuration being needed just open the file with nano and edit it.  
 
 # To run in standalone mode 
 
@@ -40,5 +42,5 @@ A file with just a few basic commands can be found inside the pod at /home/comma
   
   For debug purposes the image can be initialized without the second part of the CMD comand (just run the setup.sh) by either changing the start command in kafka/values.yaml (just uncomment the setup.sh at line 189) and then install again or building a new image. After that the script can be started manually (/opt/bitnami/kafka/bin/connect-standalone.sh).
 
-  **To stop the kafka server, enter the pod in iterative mode (kubectl exec -it mykafka-0  -- /bin/bash) and run the script /opt/bitnami/kafka/bin/kafka-server-stop.sh**  
+  **To stop the kafka server, enter the pod in iterative mode (*kubectl exec -it mykafka-0  -- /bin/bash*) and run the script /opt/bitnami/kafka/bin/kafka-server-stop.sh**  
   
