@@ -6,7 +6,7 @@
 		"key.converter": "org.apache.kafka.connect.converters.ByteArrayConverter",
 		"value.converter": "org.apache.kafka.connect.storage.StringConverter",
 		"group.id": "solSinkConnectorGroup",
-		"topics": "sinktest",
+		"topics": "test",
 		"sol.host": "tcp://192.168.99.113:55555",
 		"sol.username": "default",
 		"sol.password": "default",
