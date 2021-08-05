@@ -1,7 +1,7 @@
 # SolaceKafkaConnectors
 Basically an instantiation of Solace-Kafka connectors but ready for deployment in kubernetes
 
-# To run in distributed mode
+# To Run in Distributed mode
 All the major configuration is already done, just download the repo, configure the file /kafka/values.yaml to use the settings you want (pay special atention to ReplicaCount), after that just install kafka using *helm install*:
   * e.g. *helm install mykafka ./kafka*  
 
@@ -11,7 +11,7 @@ A file with just a few basic commands can be found inside the pod at /home/comma
 
 The pod already has nano editor installed so if theres any special configuration being needed just open the file with nano and edit it.  
 
-# To run in standalone mode 
+# To Run in Standalone mode 
 
 **Configuration:**  
   After downloading the repo edit the connection information in the files:
@@ -32,6 +32,8 @@ The pod already has nano editor installed so if theres any special configuration
   Choose where you want to upload your docker image, build it and upload it e.g.
   * *docker build -t rodrigofelixdockerhub/kafka:latest .* 
   * *docker push rodrigofelixdockerhub/kafka*
+      
+ (in case you decide to use mine don't forget to uncomment the standalone CMD and comment the distributed one) .    
       
 **To deploy:**
   * Connect to your kubernetes cluster (you can check it by doing *kubectl get node*).
