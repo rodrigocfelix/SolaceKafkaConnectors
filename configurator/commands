@@ -1,0 +1,24 @@
+curl http://mykafka-headless.kafka.svc.cluster.local:8083/connector-plugins
+
+
+curl -X POST -H "Content-Type: application/json" \
+             -d @solace_source_properties.json \
+             http://mykafka-headless.kafka.svc.cluster.local:8083/connectors
+
+curl -X POST -H "Content-Type: application/json" \
+             -d @solace_sink_properties.json \
+             http://mykafka-headless.kafka.svc.cluster.local:8083/connectors
+
+curl mykafka-headless.kafka.svc.cluster.local:8083/connectors/solaceSourceConnector/status | jq
+
+curl mykafka-headless.kafka.svc.cluster.local:8083/connectors/solaceSinkConnector/status | jq
+
+
+curl -X DELETE -H "Content-Type: application/json" \
+                 http://mykafka-headless.kafka.svc.cluster.local:8083/connectors/solaceSinkConnector
+
+curl -X DELETE -H "Content-Type: application/json" \
+                 http://mykafka-headless.kafka.svc.cluster.local:8083/connectors/solaceSourceConnector
+
+curl -X GET -H "Content-Type: application/json" \
+             http://mykafka-headless.kafka.svc.cluster.local:8083/connectors

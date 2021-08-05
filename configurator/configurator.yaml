@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: configuratordepl
+  labels:
+    app: configurator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: configurator
+  template:
+    metadata:
+      labels:
+        app: configurator
+    spec:
+      containers:
+      - name: configurator
+        image: adoptopenjdk/openjdk8:x86_64-ubuntu-jre8u292-b10
+        ##image: rodrigofelixdockerhub/configurator:latest
+        command: ["sleep"]
+        args: ["infinity"]
+        env:
+        - name: TESTE
+          value: nsei
