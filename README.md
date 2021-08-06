@@ -1,27 +1,35 @@
 # SolaceKafkaConnectors
-Basically an instantiation of Solace-Kafka connectors but ready for deployment in kubernetes.  
+This repository is an instance of Solace-Kafka connectors ready for deployment in a distributed kubernetes environment.
 
-To use you will need acess to a solace broker running either on a cluster or on solace-cloud.
+To use it you will need access to a solace broker running either on a cluster or on solace-cloud.
 
 # To Run in Distributed mode
-All the major configuration is already done, just download the repo, if you want to change any configuration e.g. the number of replicas, configure the file /kafka/values.yaml, after that just install kafka using *helm install*:
+
+**Configuration:**  
+  All the major configuration is already done but after downloading the repository, if you want to change any configuration (e.g. the number of replicas) configure the file /kafka/values.yaml.  
+  After that, configure the ENV variables in /configurator/configurator.yaml so that the connectors know which broker are they supposed to connect and which kafka topics are they supposed to read/write from/to.
+  
+  
+**Deployment:**  
+Deploy kafka using *helm install*:
   * e.g. *helm install mykafka ./kafka*  
 
-Now configure the ENV vars in /configurator/configurator.yaml and deploy it (to deploy just do *kubectl apply -f /configurator/configurator.yaml*, theres no need to build a new image).  
-After that just enter the pod in iterative mode (*kubectl exec -it \<podName\>  -- /bin/bash*) and run the comands to configure or get information about the connectors.  
+Deploy the kafka-configurator using the file */configurator/configurator.yaml* (here there's no need to build a new image since the ENVs will be passed on the deployment and not in the dockerfile):
+  * *kubectl apply -f /configurator/configurator.yaml*  
 
-A file with just a few basic commands can be found inside the pod at /home/commands all you got to do to use them is to change the name of the headless service. 
+**How to start the Connectors**  
+All you need to do is to enter the pod in iterative mode (*kubectl exec -it \<podName\>  -- /bin/bash*) and run the starting command.
 
-**Note that after the first time you use the configurator, probably the connectors are already running, so the next time you use it check if they are running first, then delete them and create new ones with the new settings you want.**  
+A file with just a few basic commands can be found inside the pod at /home/commands. To use them you just need to change the name of the headless service and paste them in the pod's shell.  
 
-Even if you uninstall and re-install everything again, the connectors configurations are presistent, and will be running.  
+Note that, after the first time you use the configurator, the connectors are probably already running with old configurations. The best way to proceed is to always check if they are running. If there's any connector up, then delete it and create a new one with the new settings you need. Keep in mind that even if you uninstall and reinstall everything again, the connectors configurations are persistent, and will be running.  
 
-The pod already has nano editor installed so if theres any special configuration being needed just open the file with nano and edit it.  
+The pod already has nano editor installed so if there's any special configuration being needed just open the file with nano and edit it.  
 
 # To Run in Standalone mode 
 
 **Configuration:**  
-  After downloading the repo edit the connection information in the files:
+  After downloading the repository edit the connection information in the files:
   * ./connectors/pubsubplus-connector-kafka-sink-2.0.2/etc/solace_sink.properties 
   * ./connectors/pubsubplus-connector-kafka-source-2.0.2/etc/solace_source.properties
   
@@ -36,11 +44,11 @@ The pod already has nano editor installed so if theres any special configuration
   
 **Now that all the configurations are made we can upload and deploy**  
 **To upload:**  
-  Choose where you want to upload your docker image, build it and upload it e.g.
+  Choose where you want to upload your docker image, build it and upload it e.g.:
   * *docker build -t rodrigofelixdockerhub/kafka:latest .* 
   * *docker push rodrigofelixdockerhub/kafka*
       
- (in case you decide to use mine don't forget to uncomment the standalone CMD and comment the distributed one) .    
+ (If you decide to use my image don't forget to uncomment the standalone CMD and comment out the distributed one).    
       
 **To deploy:**
   * Connect to your kubernetes cluster (you can check it by doing *kubectl get node*).
