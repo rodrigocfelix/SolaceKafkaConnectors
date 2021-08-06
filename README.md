@@ -1,13 +1,20 @@
 # SolaceKafkaConnectors
-Basically an instantiation of Solace-Kafka connectors but ready for deployment in kubernetes
+Basically an instantiation of Solace-Kafka connectors but ready for deployment in kubernetes.  
+
+To use you will need acess to a solace broker running either on a cluster or on solace-cloud.
 
 # To Run in Distributed mode
-All the major configuration is already done, just download the repo, configure the file /kafka/values.yaml to use the settings you want (pay special atention to ReplicaCount), after that just install kafka using *helm install*:
+All the major configuration is already done, just download the repo, if you want to change any configuration e.g. the number of replicas, configure the file /kafka/values.yaml, after that just install kafka using *helm install*:
   * e.g. *helm install mykafka ./kafka*  
 
-Now configure the ENV vars in /configurator/configurator.yaml and deploy it (to deploy just do *kubectl apply -f configurator.yaml*, theres no need to build a new image).  
+Now configure the ENV vars in /configurator/configurator.yaml and deploy it (to deploy just do *kubectl apply -f /configurator/configurator.yaml*, theres no need to build a new image).  
 After that just enter the pod in iterative mode (*kubectl exec -it \<podName\>  -- /bin/bash*) and run the comands to configure or get information about the connectors.  
-A file with just a few basic commands can be found inside the pod at /home/commands all you got to do to use them is to change the name of the headless service.  
+
+A file with just a few basic commands can be found inside the pod at /home/commands all you got to do to use them is to change the name of the headless service. 
+
+**Note that after the first time you use the configurator, probably the connectors are already running, so the next time you use it check if they are running first, then delete them and create new ones with the new settings you want.**  
+
+Even if you uninstall and re-install everything again, the connectors configurations are presistent, and will be running.  
 
 The pod already has nano editor installed so if theres any special configuration being needed just open the file with nano and edit it.  
 
@@ -42,7 +49,7 @@ The pod already has nano editor installed so if theres any special configuration
     * e.g. helm install mykafka ./kafka
   
   
-  For debug purposes the image can be initialized without the second part of the CMD comand (just run the setup.sh) by either changing the start command in kafka/values.yaml (just uncomment the setup.sh at line 189) and then install again or building a new image. After that the script can be started manually (/opt/bitnami/kafka/bin/connect-standalone.sh).
+  For debug purposes the image can be initialized without the second part of the CMD command (just run the setup.sh) by either changing the start command in kafka/values.yaml (just uncomment the setup.sh at line 189) and then install again or building a new image. After that the script can be started manually (/opt/bitnami/kafka/bin/connect-standalone.sh).
 
   **To stop the kafka server, enter the pod in iterative mode (*kubectl exec -it mykafka-0  -- /bin/bash*) and run the script /opt/bitnami/kafka/bin/kafka-server-stop.sh**  
   
