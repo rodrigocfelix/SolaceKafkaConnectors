@@ -1,24 +1,34 @@
+to read about how to use the restAPI: https://docs.confluent.io/platform/current/connect/references/restapi.html
+
+some commands that u can use, just got to change the name of the headless service:
+
+To see the available plugins:
 curl http://mykafka-headless.kafka.svc.cluster.local:8083/connector-plugins
 
+To see the connectors that are running:
+curl -X GET -H "Content-Type: application/json" \
+             http://mykafka-headless.kafka.svc.cluster.local:8083/connectors
 
+To start a connector using the file solace_source_properties.json:
 curl -X POST -H "Content-Type: application/json" \
              -d @solace_source_properties.json \
              http://mykafka-headless.kafka.svc.cluster.local:8083/connectors
 
+To start a connector using the file solace_sink_properties.json:
 curl -X POST -H "Content-Type: application/json" \
              -d @solace_sink_properties.json \
              http://mykafka-headless.kafka.svc.cluster.local:8083/connectors
 
+To see the status of solaceSourceConnector:
 curl mykafka-headless.kafka.svc.cluster.local:8083/connectors/solaceSourceConnector/status | jq
 
+To see the status of solaceSinkConnector:
 curl mykafka-headless.kafka.svc.cluster.local:8083/connectors/solaceSinkConnector/status | jq
 
-
+To delete solaceSinkConnector:
 curl -X DELETE -H "Content-Type: application/json" \
                  http://mykafka-headless.kafka.svc.cluster.local:8083/connectors/solaceSinkConnector
 
+To delete solaceSourceConnector:
 curl -X DELETE -H "Content-Type: application/json" \
                  http://mykafka-headless.kafka.svc.cluster.local:8083/connectors/solaceSourceConnector
-
-curl -X GET -H "Content-Type: application/json" \
-             http://mykafka-headless.kafka.svc.cluster.local:8083/connectors
